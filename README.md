@@ -2,6 +2,8 @@
 
 中文 | [English](README.en.md)
 
+> **这是社区 fork**：原项目 [op7418/dsh-guizang-design](https://github.com/op7418/dsh-guizang-design) 由歸藏（op7418）创作。本 fork 只多一件事：去 AI 味按客户端语言分成 `/humanizer-zh`（中文）和 `/humanizer`（英文），细节和改动清单见文末「[关于这个 fork](#关于这个-fork)」。
+
 [DeepSeek Harness](https://www.npmjs.com/package/@deepseek-ai/dsh)（dsh）插件。把歸藏的内容生产 skill 装进 dsh：网页 PPT、图文卡片、网页排版、去 AI 味，外加一个学你写作语气的语气档案。前三个共用同一套设计系统，同一篇内容做成 PPT、卡片和网页，主题、字体和版式是一家人。
 
 侧栏多一个「歸藏设计」页面：从这里开始创作，回看做过的作品，一键「做同款」，或者用现成的内容生产工作流。
@@ -184,7 +186,7 @@ node <插件目录>/scripts/voice.mjs show
 ## 开发
 
 ```bash
-git clone https://github.com/op7418/dsh-guizang-design.git
+git clone https://github.com/erwindassen/dsh-guizang-design.git
 cd dsh-guizang-design
 npm install
 npm test
@@ -199,6 +201,29 @@ dsh plugin --profile web add link:$PWD   # 本地调试
 | `own-skills/` | 插件自己的 skill（语气档案） |
 | `examples/` | 官方示例，用 `node tools/vendor-examples.mjs` 生成 |
 | `scripts/` | `library.mjs`（作品库）、`voice.mjs`（语气档案）的命令行版本，手动处理用 |
+
+## 关于这个 fork
+
+这是 [op7418/dsh-guizang-design](https://github.com/op7418/dsh-guizang-design) 的社区 fork，原作者是歸藏（op7418）。skill、设计系统、插件页面和文案都来自原项目；这份 fork 只改了一件事：**把去 AI 味按客户端语言分成两份**。
+
+- 中文界面用 `/humanizer-zh`（原项目自带），英文界面用 `/humanizer`（来自 [blader/humanizer](https://github.com/blader/humanizer) v4.0.0，MIT）。侧栏磁贴跟着界面语言走，两种语言都是四个磁贴。
+- `humanize-then-typeset` 和 `talk-to-article` 两条工作流在英文界面下改用 `/humanizer`；中文界面仍用 `/humanizer-zh`。
+- 两份去 AI 味 skill 都只改文字，不登记作品，和原项目对 `/humanizer-zh` 的处理一致。
+
+改动的文件：新增的 `skills/humanizer/`、`skills/manifest.json`、`lib/recipes.js`、`lib/skills.js`、`gallery/app.js`、`gallery/i18n.js`、`locale/en.json`、`locale/zh.json`、`package.json`、`test/plugin.test.mjs`、`tools/vendor-skills.mjs`，以及这两份 README。版本号用 `0.1.5-local.1`，避免和原项目的 npm 版本混在一起。
+
+装上这份 fork：
+
+```bash
+git clone https://github.com/erwindassen/dsh-guizang-design.git
+cd dsh-guizang-design
+npm install
+dsh plugin --profile desktop add link:$PWD   # 桌面版用 desktop，Web 版用 web
+```
+
+之后重启 dsh，磁贴就按界面语言显示了。之后改代码只要重启，不用重装；要跟着原项目升级，见 [REAPPLYING.md](REAPPLYING.md)。
+
+想要原版，装 [op7418/dsh-guizang-design](https://github.com/op7418/dsh-guizang-design)。和这份 fork 无关的问题请提给原仓库；如果是这个 fork 自己带来的问题，在这里开 issue 并说明你在跑 fork。
 
 ## License
 
